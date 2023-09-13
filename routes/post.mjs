@@ -2,7 +2,7 @@
 import express from 'express';
 import { customAlphabet } from 'nanoid'
 import { client } from './../mongodb.mjs';
-import { ObjectId } from 'mongodb';
+// import { ObjectId } from 'mongodb';
 import pineconeClient
 // , { openai as openaiClient }
     from './../pinecone.mjs';

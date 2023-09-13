@@ -118,65 +118,110 @@ const Home = () => {
       preConfirm: (password) => {
         if (password === '12345') {
 
-          axios.get(`/api/v1/post/${postId}`)
-            .then(response => {
-              const post = response.data;
-              console.log(post)
-              Swal.fire({
-                title: 'Edit Post',
-                html: `
-                  <input type="text" id="editTitle" class="swal2-input" placeholder="Post Title" value="${post.title}" required>
-                  <textarea id="editText" class="swal2-input text" placeholder="Post Text" required>${post.text}</textarea>
-                `,
-                showCancelButton: true,
-                cancelButtonColor: "#24232c",
-                confirmButtonText: 'Update',
-                confirmButtonColor: "#24232c",
-                preConfirm: () => {
+          // axios.get(`/api/v1/post/${postId}`)
+          //   .then(response => {
+          //     const post = response.data;
+          //     console.log(post)
+          //     Swal.fire({
+          //       title: 'Edit Post',
+          //       html: `
+          //         <input type="text" id="editTitle" class="swal2-input" placeholder="Post Title" value="${post.title}" required>
+          //         <textarea id="editText" class="swal2-input text" placeholder="Post Text" required>${post.text}</textarea>
+          //       `,
+          //       showCancelButton: true,
+          //       cancelButtonColor: "#24232c",
+          //       confirmButtonText: 'Update',
+          //       confirmButtonColor: "#24232c",
+          //       preConfirm: () => {
 
-                  const editedTitle = document.getElementById('editTitle').value;
-                  const editedText = document.getElementById('editText').value;
+          //         const editedTitle = document.getElementById('editTitle').value;
+          //         const editedText = document.getElementById('editText').value;
 
-                  if (!editedTitle.trim() || !editedText.trim()) {
-                    Swal.showValidationMessage('Title and text are required');
-                    return false;
-                  }
+          //         if (!editedTitle.trim() || !editedText.trim()) {
+          //           Swal.showValidationMessage('Title and text are required');
+          //           return false;
+          //         }
 
-                  return axios.put(`/api/v1/post/${postId}`, {
-                    title: editedTitle,
-                    text: editedText
-                  })
-                    .then(response => {
-                      // console.log(response.data);
-                      Swal.fire({
-                        icon: 'success',
-                        title: 'Post Updated',
-                        timer: 1000,
-                        showConfirmButton: false
-                      });
-                      renderPost()
-                    })
-                    .catch(error => {
-                      // console.log(error.response.data);
-                      Swal.fire({
-                        icon: 'error',
-                        title: 'Failed to update post',
-                        text: error.response.data,
-                        showConfirmButton: false
-                      });
-                    });
-                }
-              });
-            })
-            .catch(error => {
-              // console.log(error.response.data);
-              Swal.fire({
-                icon: 'error',
-                title: 'Failed to fetch post',
-                text: error.response.data,
-                showConfirmButton: false
-              });
-            });
+          //         return axios.put(`/api/v1/post/${postId}`, {
+          //           title: editedTitle,
+          //           text: editedText
+          //         })
+          //           .then(response => {
+          //             // console.log(response.data);
+          //             Swal.fire({
+          //               icon: 'success',
+          //               title: 'Post Updated',
+          //               timer: 1000,
+          //               showConfirmButton: false
+          //             });
+          //             renderPost()
+          //           })
+          //           .catch(error => {
+          //             // console.log(error.response.data);
+          //             Swal.fire({
+          //               icon: 'error',
+          //               title: 'Failed to update post',
+          //               text: error.response.data,
+          //               showConfirmButton: false
+          //             });
+          //           });
+          //       }
+          //     });
+          //   })
+          //   .catch(error => {
+          //     // console.log(error.response.data);
+          //     Swal.fire({
+          //       icon: 'error',
+          //       title: 'Failed to fetch post',
+          //       text: error.response.data,
+          //       showConfirmButton: false
+          //     });
+          //   });
+          Swal.fire({
+            title: 'Edit Post',
+            html: `
+              <input type="text" id="editTitle" class="swal2-input" placeholder="Post Title" required>
+              <textarea id="editText" class="swal2-input text" placeholder="Post Text" required></textarea>
+            `,
+            showCancelButton: true,
+            cancelButtonColor: "#24232c",
+            confirmButtonText: 'Update',
+            confirmButtonColor: "#24232c",
+            preConfirm: () => {
+
+              const editedTitle = document.getElementById('editTitle').value;
+              const editedText = document.getElementById('editText').value;
+
+              if (!editedTitle.trim() || !editedText.trim()) {
+                Swal.showValidationMessage('Title and text are required');
+                return false;
+              }
+
+              return axios.put(`/api/v1/post/${postId}`, {
+                title: editedTitle,
+                text: editedText
+              })
+                .then(response => {
+                  // console.log(response.data);
+                  Swal.fire({
+                    icon: 'success',
+                    title: 'Post Updated',
+                    timer: 1000,
+                    showConfirmButton: false
+                  });
+                  renderPost()
+                })
+                .catch(error => {
+                  // console.log(error.response.data);
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Failed to update post',
+                    text: error.response.data,
+                    showConfirmButton: false
+                  });
+                });
+            }
+          });
         } else {
 
           Swal.fire({
