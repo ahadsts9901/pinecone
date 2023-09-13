@@ -3,7 +3,8 @@ import express from 'express';
 import { customAlphabet } from 'nanoid'
 import { client } from './../mongodb.mjs';
 import { ObjectId } from 'mongodb';
-import pineconeClient, { openai as openaiClient }
+import pineconeClient
+// , { openai as openaiClient }
     from './../pinecone.mjs';
 
 const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', 10)
@@ -45,11 +46,13 @@ router.post('/post', async (req, res, next) => {
         // });
         // console.log("insertResponse: ", insertResponse);
 
-        const response = await openaiClient.embeddings.create({
-            model: "text-embedding-ada-002",
-            input: `${req.body.title} ${req.body.text}`,
-        });
-        const vector = response?.data[0]?.embedding
+        // const response = await openaiClient.embeddings.create({
+        //     model: "text-embedding-ada-002",
+        //     input: `${req.body.title} ${req.body.text}`,
+        // });
+        // const vector = response?.data[0]?.embedding
+        const vector = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
         console.log("vector: ", vector);
 
 
@@ -64,6 +67,7 @@ router.post('/post', async (req, res, next) => {
                 createdOn: new Date().getTime()
             },
         }]);
+        console.log(req.body.title)
         console.log("upsertResponse: ", upsertResponse);
 
 
@@ -91,11 +95,13 @@ router.get('/posts', async (req, res, next) => {
     // }
 
     try {
-        const response = await openaiClient.embeddings.create({
-            model: "text-embedding-ada-002",
-            input: "",
-        });
-        const vector = response?.data[0]?.embedding
+        // const response = await openaiClient.embeddings.create({
+        //     model: "text-embedding-ada-002",
+        //     input: "",
+        // });
+        // const vector = response?.data[0]?.embedding
+        const vector = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
         console.log("vector: ", vector);
         // [ 0.0023063174, -0.009358601, 0.01578391, ... , 0.01678391, ]
 
@@ -131,11 +137,12 @@ router.get('/posts', async (req, res, next) => {
 router.get('/search', async (req, res, next) => {
 
     try {
-        const response = await openaiClient.embeddings.create({
-            model: "text-embedding-ada-002",
-            input: req.query.q,
-        });
-        const vector = response?.data[0]?.embedding
+        // const response = await openaiClient.embeddings.create({
+        //     model: "text-embedding-ada-002",
+        //     input: req.query.q,
+        // });
+        const vector = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
         console.log("vector: ", vector);
         // [ 0.0023063174, -0.009358601, 0.01578391, ... , 0.01678391, ]
 
@@ -169,33 +176,38 @@ router.get('/search', async (req, res, next) => {
 
 // [92133,92254, 92255 ]
 
-router.get('/post/:postId', async (req, res, next) => {
-    console.log('this is signup!', new Date());
+// router.get('/post/:postId', async (req, res, next) => {
+//     console.log('this is signup!', new Date());
 
-    if (!ObjectId.isValid(req.params.postId)) {
-        res.status(403).send(`Invalid post id`);
-        return;
-    }
-
-
-    // const cursor = col.find({ price: { $lte: 77 } });
-    // const cursor = col.find({
-    //     $or: [
-    //         { _id: req.params.postId },
-    //         { title: "dfsdf sdfsdf" }
-    //     ]
-    // })
+//     if (!ObjectId.isValid(req.params.postId)) {
+//         res.status(403).send(`Invalid post id`);
+//         return;
+//     }
 
 
-    try {
-        let result = await col.findOne({ _id: new ObjectId(req.params.postId) });
-        console.log("result: ", result); // [{...}] []
-        res.send(result);
-    } catch (e) {
-        console.log("error getting data mongodb: ", e);
-        res.status(500).send('server error, please try later');
-    }
-})
+//     // const cursor = col.find({ price: { $lte: 77 } });
+//     // const cursor = col.find({
+//     //     $or: [
+//     //         { _id: req.params.postId },
+//     //         { title: "dfsdf sdfsdf" }
+//     //     ]
+//     // })
+
+
+//     try {
+//         let result = await col.findOne({ _id: new ObjectId(req.params.postId) });
+//         console.log("result: ", result); // [{...}] []
+//         res.send(result);
+//     } catch (e) {
+//         console.log("error getting data mongodb: ", e);
+//         res.status(500).send('server error, please try later');
+//     }
+// })
+
+
+//new api for single post
+
+
 
 // PUT     /api/v1/post/:postId
 // {
@@ -242,11 +254,12 @@ router.put('/post/:postId', async (req, res, next) => {
     // }
 
     try {
-        const response = await openaiClient.embeddings.create({
-            model: "text-embedding-ada-002",
-            input: `${req.body.title} ${req.body.text}`,
-        });
-        const vector = response?.data[0]?.embedding
+        // const response = await openaiClient.embeddings.create({
+        //     model: "text-embedding-ada-002",
+        //     input: `${req.body.title} ${req.body.text}`,
+        // });
+        const vector = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
         console.log("vector: ", vector);
 
         const upsertResponse = await pcIndex.upsert([{
@@ -270,6 +283,51 @@ router.put('/post/:postId', async (req, res, next) => {
 
 
 })
+
+// PUT /api/v1/post/:postId
+// router.put('/post/:postId', async (req, res, next) => {
+//     try {
+//         const postId = req.params.postId;
+//         const post = await col.findOne({ _id: new ObjectId(postId) });
+
+//         if (!post) {
+//             res.status(404).send(`Post with ID ${postId} not found.`);
+//             return;
+//         }
+
+//         if (!req.body.text && !req.body.title) {
+//             res.status(400).send('At least one of the following keys is required: title, text.');
+//             return;
+//         }
+
+//         // Retrieve the existing vector from Pinecone
+//         const existingVector = await pcIndex.retrieve(postId);
+
+//         // Update the vector if text or title is provided in the request
+//         if (req.body.title || req.body.text) {
+//             // Construct the updated vector (modify this part as per your needs)
+//             const updatedVector = [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+//             // Update the Pinecone index with the new vector
+//             await pcIndex.upsert([
+//                 {
+//                     _id: postId,
+//                     values: updatedVector,
+//                     metadata: {
+//                         title: req.body.title || post.metadata.title,
+//                         text: req.body.text || post.metadata.text,
+//                     },
+//                 },
+//             ]);
+//         }
+
+//         res.send({ message: 'Post updated successfully.' });
+//     } catch (e) {
+//         console.log("Error updating post: ", e);
+//         res.status(500).send({ message: 'Server error, please try later.' });
+//     }
+// });
+
 
 // DELETE  /api/v1/post/:postId
 router.delete('/post/:postId', async (req, res, next) => {
