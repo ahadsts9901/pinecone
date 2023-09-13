@@ -16,11 +16,13 @@ const Home = () => {
     event.preventDefault();
     const postTitle = document.querySelector("#title");
     const postText = document.querySelector("#text");
+    // const time = `${new Date()}`
 
     axios
       .post(`/api/v1/post`, {
         title: postTitle.value,
         text: postText.value,
+        // time: time,
       })
       .then(function (response) {
         console.log(response.data);
@@ -103,7 +105,10 @@ const Home = () => {
     });
   }
 
-  function editPost(postId) {
+  function editPost(postId, event) {
+    let toEditTitle = event.target.parentNode.parentNode.querySelector(".scrollH").innerText
+    let toEditText = event.target.parentNode.parentNode.querySelector(".scroll").innerText
+    // console.log(toEditTitle, toEditText)
     Swal.fire({
       title: 'Enter Password',
       input: 'password',
@@ -117,7 +122,6 @@ const Home = () => {
       showLoaderOnConfirm: true,
       preConfirm: (password) => {
         if (password === '12345') {
-
           // axios.get(`/api/v1/post/${postId}`)
           //   .then(response => {
           //     const post = response.data;
@@ -180,8 +184,8 @@ const Home = () => {
           Swal.fire({
             title: 'Edit Post',
             html: `
-              <input type="text" id="editTitle" class="swal2-input" placeholder="Post Title" required>
-              <textarea id="editText" class="swal2-input text" placeholder="Post Text" required></textarea>
+              <input type="text" id="editTitle" class="swal2-input" placeholder="Post Title" value="${toEditTitle}" required>
+              <textarea id="editText" class="swal2-input text" placeholder="Post Text" required>${toEditText}</textarea>
             `,
             showCancelButton: true,
             cancelButtonColor: "#24232c",
@@ -307,12 +311,12 @@ const Home = () => {
         </label>
         <textarea required id="text" placeholder="Enter Text" className="input"></textarea>
         <div className='row'>
-        <button type="submit" className="button">
-          Post
-        </button>
-        <button type="button" className="button" onClick={deleteAllPosts}>
-          Delete All
-        </button>
+          <button type="submit" className="button">
+            Post
+          </button>
+          {/* <button type="button" className="button" onClick={deleteAllPosts}>
+            Delete All
+          </button> */}
         </div>
       </form>
       <h2 className="green">Posts</h2>

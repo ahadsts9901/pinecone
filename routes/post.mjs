@@ -4,7 +4,7 @@ import { customAlphabet } from 'nanoid'
 import { client } from './../mongodb.mjs';
 // import { ObjectId } from 'mongodb';
 import pineconeClient
-// , { openai as openaiClient }
+    // , { openai as openaiClient }
     from './../pinecone.mjs';
 
 const nanoid = customAlphabet('1234567890abcdefghijklmnopqrstuvwxyz', 10)
@@ -110,7 +110,8 @@ router.get('/posts', async (req, res, next) => {
             // id: "vec1",
             topK: 10000,
             includeValues: false,
-            includeMetadata: true
+            includeMetadata: true,
+            sort: ['-metadata.createdOn'],
         });
 
         queryResponse.matches.map(eachMatch => {
@@ -122,6 +123,7 @@ router.get('/posts', async (req, res, next) => {
             text: eachMatch?.metadata?.text,
             title: eachMatch?.metadata?.title,
             _id: eachMatch?.id,
+            createdOn: new Date(eachMatch?.metadata?.createdOn).toString()
         }))
 
         res.send(formattedOutput);
@@ -173,41 +175,7 @@ router.get('/search', async (req, res, next) => {
     }
 
 })
-
-// [92133,92254, 92255 ]
-
-// router.get('/post/:postId', async (req, res, next) => {
-//     console.log('this is signup!', new Date());
-
-//     if (!ObjectId.isValid(req.params.postId)) {
-//         res.status(403).send(`Invalid post id`);
-//         return;
-//     }
-
-
-//     // const cursor = col.find({ price: { $lte: 77 } });
-//     // const cursor = col.find({
-//     //     $or: [
-//     //         { _id: req.params.postId },
-//     //         { title: "dfsdf sdfsdf" }
-//     //     ]
-//     // })
-
-
-//     try {
-//         let result = await col.findOne({ _id: new ObjectId(req.params.postId) });
-//         console.log("result: ", result); // [{...}] []
-//         res.send(result);
-//     } catch (e) {
-//         console.log("error getting data mongodb: ", e);
-//         res.status(500).send('server error, please try later');
-//     }
-// })
-
-
 //new api for single post
-
-
 
 // PUT     /api/v1/post/:postId
 // {
@@ -352,6 +320,26 @@ router.delete('/post/:postId', async (req, res, next) => {
 
     res.send('post deleted');
 })
+
+
+// delete all
+
+router.delete('/posts/all', async (req, res) => {
+    try {
+        // Perform a delete operation to remove all records from the Pinecone index
+        const deleteResponse = await pcIndex.deleteAll();
+
+        // Check the deleteResponse status (e.g., 'ok' indicates success)
+        if (deleteResponse.status === 'ok') {
+            res.status(200).json({ message: 'All posts deleted successfully.' });
+        } else {
+            res.status(500).json({ message: 'Failed to delete all posts.' });
+        }
+    } catch (error) {
+        console.error('Error deleting all posts:', error);
+        res.status(500).json({ message: 'Server error, please try later.' });
+    }
+});
 
 export default router
 
