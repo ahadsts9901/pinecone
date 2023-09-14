@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import './home.css';
@@ -7,6 +7,9 @@ import { Post, NoPost } from '../post/post';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
+  const searchInputRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     renderPost();
@@ -16,7 +19,7 @@ const Home = () => {
     event.preventDefault();
     const postTitle = document.querySelector("#title");
     const postText = document.querySelector("#text");
-    // const time = `${new Date()}`
+    // const time = (new Date()).toLocaleString()
 
     axios
       .post(`/api/v1/post`, {
@@ -48,7 +51,6 @@ const Home = () => {
       .get(`/api/v1/posts`)
       .then(function (response) {
         let fetchedPosts = response.data;
-        console.log("fetched posts", fetchedPosts);
         setPosts(fetchedPosts);
       })
       .catch(function (error) {
@@ -122,65 +124,6 @@ const Home = () => {
       showLoaderOnConfirm: true,
       preConfirm: (password) => {
         if (password === '12345') {
-          // axios.get(`/api/v1/post/${postId}`)
-          //   .then(response => {
-          //     const post = response.data;
-          //     console.log(post)
-          //     Swal.fire({
-          //       title: 'Edit Post',
-          //       html: `
-          //         <input type="text" id="editTitle" class="swal2-input" placeholder="Post Title" value="${post.title}" required>
-          //         <textarea id="editText" class="swal2-input text" placeholder="Post Text" required>${post.text}</textarea>
-          //       `,
-          //       showCancelButton: true,
-          //       cancelButtonColor: "#24232c",
-          //       confirmButtonText: 'Update',
-          //       confirmButtonColor: "#24232c",
-          //       preConfirm: () => {
-
-          //         const editedTitle = document.getElementById('editTitle').value;
-          //         const editedText = document.getElementById('editText').value;
-
-          //         if (!editedTitle.trim() || !editedText.trim()) {
-          //           Swal.showValidationMessage('Title and text are required');
-          //           return false;
-          //         }
-
-          //         return axios.put(`/api/v1/post/${postId}`, {
-          //           title: editedTitle,
-          //           text: editedText
-          //         })
-          //           .then(response => {
-          //             // console.log(response.data);
-          //             Swal.fire({
-          //               icon: 'success',
-          //               title: 'Post Updated',
-          //               timer: 1000,
-          //               showConfirmButton: false
-          //             });
-          //             renderPost()
-          //           })
-          //           .catch(error => {
-          //             // console.log(error.response.data);
-          //             Swal.fire({
-          //               icon: 'error',
-          //               title: 'Failed to update post',
-          //               text: error.response.data,
-          //               showConfirmButton: false
-          //             });
-          //           });
-          //       }
-          //     });
-          //   })
-          //   .catch(error => {
-          //     // console.log(error.response.data);
-          //     Swal.fire({
-          //       icon: 'error',
-          //       title: 'Failed to fetch post',
-          //       text: error.response.data,
-          //       showConfirmButton: false
-          //     });
-          //   });
           Swal.fire({
             title: 'Edit Post',
             html: `
@@ -294,11 +237,34 @@ const Home = () => {
     });
   }
 
+  const search = async (e) => {
+    e.preventDefault();
+    try {
+      setIsLoading(true);
+      const response = await axios.get(`/api/v1/search?q=${searchInputRef.current.value}`);
+      console.log(response.data);
+
+      setIsLoading(false);
+      setPosts([...response.data]);
+    } catch (error) {
+      console.log(error.data);
+      setIsLoading(false);
+    }
+    e.target.reset()
+  };
+
   return (
     <div>
       <div className="space-around row">
-        <h1 className="green"> PineCone CRUD</h1>
+        <h1 className="green"> <span className="pink">PineCone</span> <span className="yellow"> CRUD</span></h1>
       </div>
+
+      <form className='search' onSubmit={search}>
+        <input required type="search" placeholder="Search Here..." className="input" ref={searchInputRef} />
+        <button type="submit" className="button">
+          Search
+        </button>
+      </form>
 
       <form onSubmit={createPost}>
         <h2>Create New Post</h2>

@@ -4,12 +4,12 @@ import { TrashFill, PencilFill } from 'react-bootstrap-icons';
 import moment from 'moment'
 
 const Post = (props) => {
-    const formattedTime = moment(props.createdOn).fromNow();
+    const formattedTime = moment(props.time).fromNow();
 
     return (
         <div className="post" id="">
             <p className="regards center" style={{ fontSize: '0.7em' }}>{formattedTime}</p>
-            {console.log(props)}
+            {/* {console.log(props.time)} */}
             <h2 className="scrollH">{props.title}</h2>
             <p className="scroll">{props.text}</p>
             <div className="space-around">

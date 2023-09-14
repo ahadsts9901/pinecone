@@ -13,11 +13,14 @@ body {
     width: 100vw;
     height: 100vh;
     padding: 0em !important;
+    /* background-image: url(https://raw.githubusercontent.com/ahadsts9901/json-server/main/public/background.png);
+    background-repeat: repeat;
+    background-size: 3em; */
 }
 
 #root {
-    background-color: #eee !important;
-    color: #171717 !important;
+    background-color: #171d25 !important;
+    color: #fec55e !important;
     display: flex;
     flex-direction: column;
     justify-content: right;
@@ -27,6 +30,9 @@ body {
     margin: 0em;
     width: 100vw;
     height: 100vh;
+    /* background-image: url(https://raw.githubusercontent.com/ahadsts9901/json-server/main/public/background.png);
+    background-repeat: repeat;
+    background-size: 3em; */
 }
 
 h1.green {
@@ -35,7 +41,7 @@ h1.green {
 }
 
 .green {
-    color: #3868e3;
+    color: #fff;
 }
 
 i,
@@ -51,23 +57,23 @@ h6 {
 }
 
 .drop-down {
-    background-color: #eee;
-    color: #3868e3;
+    background-color: #171d25;
+    color: #ff6677;
     border: 0px;
     padding: 0em;
     margin: 0em;
 }
 
 .dropdown-menu.show {
-    background-color: #eee;
-    color: #171717;
-    border: 1px solid #171717;
+    background-color: #171d25;
+    color: #fec55e;
+    border: 1px solid #fec55e;
     width: 11em !important;
 }
 
 .drop-down-options {
-    /* background-color: #171717; */
-    color: #eee;
+    /* background-color: #fec55e; */
+    color: #171d25;
     border: 0px;
     width: 8em !important;
 }
@@ -81,7 +87,7 @@ h6 {
 
 a,
 .list>a {
-    color: #171717;
+    color: #fec55e;
     text-decoration: none !important;
     margin: 0.5em 0.3em !important;
     /* width: fit-content; */
@@ -114,30 +120,21 @@ form {
     margin: 3em 0em;
 }
 
-form button:hover,
-form button:active,
-form button:focus,
-form .input:hover,
-form .input:active,
-form .input:focus {
-    box-shadow: #888 0px 0px 8px, #888 0px 0px 8px;
-}
-
 .button {
-    color: #eee;
-    background-color: #3868e3;
+    color: #fff;
+    background-color: #ff6677;
     width: fit-content !important;
     border: 0px;
     /* border-radius: 15px; */
     font-size: 1em;
     padding: 0.5em 1em !important;
     margin: 0em !important;
-    border-radius: 5px!important;
+    border-radius: 8px!important;
 }
 
 .button:active {
-    background-color: #eee;
-    color: #3868e3;
+    background-color: #171d25;
+    color: #fff;
 }
 
 .center {
@@ -156,7 +153,7 @@ form {
     /* border-radius: 10px; */
     width: 10em;
     height: 3em;
-    color: #171717;
+    color: #212121;
     background-color: #fff;
     width: 100%;
     border-top-right-radius: 0px;
@@ -176,27 +173,27 @@ form {
 #text::-moz-scrollbar {
     width: 4px;
     /* border-radius: 10px; */
-    background-color: #171717;
+    background-color: #fec55e;
     border-radius: 5px!important;
 }
 
 #text::-moz-scrollbar-thumb {
     width: 4px !important;
     /* border-radius: 10px; */
-    /* -webkit-box-shadow: inset 0 0 6px #eee; */
-    background-color: #eee;
+    /* -webkit-box-shadow: inset 0 0 6px #171d25; */
+    background-color: #171d25;
     border: none;
     border-radius: 5px!important;
 }
 
 #text::-moz-scrollbar-track {
-    background-color: #171717;
+    background-color: #fec55e;
     border: none;
     border-radius: 5px!important;
 }
 
 #text::-webkit-scrollbar-track {
-    background-color: #171717;
+    background-color: #fec55e;
     border: none;
     border-radius: 5px!important;
 }
@@ -204,15 +201,15 @@ form {
 #text::-webkit-scrollbar {
     width: 4px;
     /* border-radius: 10px; */
-    background-color: #171717;
+    background-color: #fec55e;
     border-radius: 5px!important;
 }
 
 #text::-webkit-scrollbar-thumb {
     width: 4px !important;
     /* border-radius: 10px; */
-    /* -webkit-box-shadow: inset 0 0 6px #eee; */
-    background-color: #eee;
+    /* -webkit-box-shadow: inset 0 0 6px #171d25; */
+    background-color: #171d25;
     border: none;
     border-radius: 5px!important;
 }
@@ -226,20 +223,20 @@ form {
 }
 
 .space-around>p {
-    color: #3868e3;
+    color: #ff6677;
 }
 
 .space-around>i {
-    color: #171717;
+    color: #fec55e;
 }
 
 .result {
     display: flex;
     justify-content: center;
-    gap: 1em;
+    gap: 2em;
     flex-wrap: wrap;
     width: 100%;
-    /* border: 2px solid #eee; */
+    /* border: 2px solid #171d25; */
     padding: 1em 0em;
 }
 
@@ -253,8 +250,8 @@ form {
     row-gap: 1em;
     width: 15em !important;
     /* height: fit-content!important; */
-    /* border: 2px solid #171717; */
-    box-shadow: #171717 0px 8px 16px, #171717 0px 8px 16px;
+    /* border: 2px solid #fec55e; */
+    box-shadow: #fec55e 0px 8px 16px, #fec55e 0px 8px 16px;
     background-color: #fff;
     /* border-radius: 0px !important; */
     border-radius: 5px!important;
@@ -273,12 +270,10 @@ form {
 
 .regards {
     font-size: 0.6em;
-    color: #171717;
+    color: #fec55e;
 }
 
 .scroll {
-    min-height: 1em !important;
-    max-height: 6em !important;
     overflow-y: auto;
     overflow-x: auto;
     width: 100%;
@@ -298,8 +293,8 @@ form {
     height: 2px;
     width: 2px !important;
     /* border-radius: 10px; */
-    /* -webkit-box-shadow: inset 0 0 6px #eee; */
-    background-color: #171717;
+    /* -webkit-box-shadow: inset 0 0 6px #171d25; */
+    background-color: #fec55e;
     border: none;
     border-radius: 5px!important;
 }
@@ -326,13 +321,13 @@ form {
 .scroll::-webkit-scrollbar-thumb {
     height: 2px;
     width: 2px !important;
-    background-color: #171717;
+    background-color: #fec55e;
     border: none;
     border-radius: 5px!important;
 }
 
 .scrollH {
-    color: #3868e3;
+    color: #ff6677;
     overflow-y: hidden;
     overflow-x: auto;
     width: 100%;
@@ -370,13 +365,14 @@ h2.green {
     border: 2px solid #888;
     border-radius: 0px !important;
     color: #212121;
-    border-radius: 5px!important;
+    border-radius: 8px!important;
 }
 
 .swal2-input:focus,
 .swal2-input:hover,
 .swal2-input:active {
     box-shadow: 0 0 0!important;
+    border: 2px solid #888;
 }
 
 .swal2-cancel:focus,
@@ -392,11 +388,52 @@ h2.green {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #171717!important;
+    background-color: #fec55e!important;
     color: #fff!important;
     padding: 0.5em;
     font-size: 0.7em;
     width: fit-content;
     height: fit-content;
     border-radius: 5px!important;
+}
+
+form.search{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0!important;
+    gap: 1em;
+    background-color: #fff;
+    width: 82%!important;
+    padding: 0.5em;
+    border-radius: 8px;
+    margin: 0em auto!important;
+}
+
+.search>*:focus,
+.search>*:hover,
+.search>*:active{
+    box-shadow: 0 0 0!important;
+}
+
+
+label.green{
+    color: #ff6677;
+}
+
+.pink{
+    color: #ff6677;
+}
+
+.yellow{
+    color: #fec55e;
+}
+
+.search>.input{
+    padding: 0 0 0 0.5em!important;
+}
+
+div:where(.swal2-container) div:where(.swal2-loader) {
+    border-color: #212121 #fff;
 }
